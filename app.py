@@ -1,8 +1,17 @@
 from flask import Flask, render_template, request
+import pymysql
+import os
 
 app = Flask(__name__)
 
-messages = []  # temporary storage
+# Railway MySQL connection
+db = pymysql.connect(
+    host=os.getenv("MYSQLHOST"),
+    user=os.getenv("MYSQLUSER"),
+    password=os.getenv("MYSQLPASSWORD"),
+    database=os.getenv("MYSQLDATABASE"),
+    port=int(os.getenv("MYSQLPORT", 3306))
+)
 
 @app.route('/')
 def home():
@@ -14,15 +23,12 @@ def contact():
     email = request.form['email']
     message = request.form['message']
 
-    messages.append({
-        "name": name,
-        "email": email,
-        "message": message
-    })
+    cursor = db.cursor()
+    sql = "INSERT INTO contacts (name, email, message) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (name, email, message))
+    db.commit()
 
-    print(messages)  # shows in terminal
-
-    return "Message received!"
+    return "Message sent successfully!"
 
 if __name__ == '__main__':
     app.run(debug=True)
