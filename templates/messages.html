@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Messages</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Messages</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/messages">Messages</a>
+    </nav>
+</header>
+
+<section>
+    <h2>All Messages</h2>
+
+    {% for row in data %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>{{ row.name }}</h3>
+        <p><b>Email:</b> {{ row.email }}</p>
+        <p>{{ row.message }}</p>
+    </div>
+    {% endfor %}
+
+</section>
+
+</body>
+</html>
