@@ -16,6 +16,14 @@ db = pymysql.connect(
 @app.route('/')
 def home():
     return render_template('index.html')
+@app.route('/messages')
+def messages():
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    
+    cursor.execute("SELECT * FROM contacts")
+    data = cursor.fetchall()
+
+    return render_template('messages.html', data=data)    
 
 @app.route('/contact', methods=['POST'])
 def contact():
