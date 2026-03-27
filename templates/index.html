@@ -1,34 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Preethi Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <header>
-        <h1>Preethi's Portfolio</h1>
-        <p>BCA Student | web developer</p>
-        <nav>
-        <a href="/">Home</a>
-        <a href="/messages">Messages</a>
-    </nav>
-    </header>
+<header>
+    <h1>Preethi T</h1>
+    <p>BCA Student | Software Development</p>
+</header>
 
-    <section>
-        <h2>About Me</h2>
-        <p>I am learning web development and Python.</p>
-    </section>
+<section>
+    <h2>About Me</h2>
+    <p>
+        I am a passionate Full Stack Developer.
+    </p>
+</section>
 
-    <section>
-        <h2>Contact Me</h2>
-        <form action="/contact" method="post">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Message"></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
+<section>
+    <h2>Skills</h2>
+    <ul>
+        <li>Python</li>
+        <li>SQL</li>
+        <li>MongoDB</li>
+        <li>C Programming</li>
+        <li>HTML & CSS</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Projects</h2>
+    <ul>
+        <li>Portfolio using Flask & MySQL</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Contact Me</h2>
+    <form action="/contact" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" required><br><br>
+        <input type="email" name="email" placeholder="Enter Email" required><br><br>
+        <textarea name="message" placeholder="Message"></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<section>
+    <h2>User Data</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+        </tr>
+
+        {% if contacts %}
+            {% for row in contacts %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No data available</td>
+            </tr>
+        {% endif %}
+    </table>
+</section>
+
+<section>
+    <h2>Connect with Me</h2>
+    <a href="#">GitHub</a> |
+    <a href="#">LinkedIn</a>
+</section>
 
 </body>
 </html>
